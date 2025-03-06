@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import "./Form.css"
 import { getEmployeeByUserId, updateEmployee } from "../../Services/employeeService.jsx"

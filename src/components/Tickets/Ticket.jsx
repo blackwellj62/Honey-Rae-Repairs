@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { getAllEmployees } from "../../Services/employeeService.jsx";
 import { assignTicket, updateTicket } from "../../Services/ticketService.jsx";
+import { deleteTicket } from "../../Services/ticketService.jsx";
 
 export const Ticket = ({ticket, currentUser, getAndSetTickets}) => {
   const [employees, setEmployees] = useState([]);
@@ -43,6 +45,12 @@ const handleClose = () => {
     })
 }
 
+const handleDelete = () => {
+  deleteTicket(ticket.id). then(()=>{
+    getAndSetTickets()
+  })
+}
+
   return (
     <section className="ticket">
       <header className="ticket-info">#{ticket.id}</header>
@@ -64,6 +72,9 @@ const handleClose = () => {
           
           {assignedEmployee?.userId === currentUser.id && !ticket.dateCompleted? 
           <button className="btn btn-warning" onClick={handleClose}>Close</button> : ""}
+
+          {!currentUser.isStaff ?
+          <button className="btn btn-warning" onClick={handleDelete}>Delete</button> : ""}
         </div>
       </footer>
     </section>
